@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Don Anundo · 70 años</title>
+  <meta name="description" content="Estás invitado a celebrar los 70 años de Don Anundo Aranda. Miércoles 30 de diciembre de 2026, 3:30 p. m., Finca Villa Carola, Chitaraque (Boyacá).">
+  <meta name="theme-color" content="#3B2213">
+
+  <!-- Vista previa al compartir el enlace (WhatsApp, Facebook…).
+       WhatsApp necesita la dirección COMPLETA de la imagen: cuando tengas la URL de
+       GitHub Pages, cambia https://jvscontadoresco-sys.github.io/don-anundo-70/ por ella (ver PUBLICAR-EN-GITHUB.md). -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="¡Estás invitado! · 70 años de Don Anundo Aranda">
+  <meta property="og:description" content="Miércoles 30 de diciembre · 3:30 p. m. · Finca Villa Carola, Chitaraque. Abre la tarjeta, confirma tu asistencia y pelea en la Gallera AA.">
+  <meta property="og:url" content="https://jvscontadoresco-sys.github.io/don-anundo-70/">
+  <meta property="og:image" content="https://jvscontadoresco-sys.github.io/don-anundo-70/vista-previa.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Rye&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #1E1410; overflow: hidden; }
+    body { font-family: 'Bitter', Georgia, serif; color: #F8EEDC; -webkit-font-smoothing: antialiased; }
+
+    #tarjeta { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #3B2213; }
+
+    /* Pantalla de carga con la identidad de la Gallera AA */
+    #carga {
+      position: fixed; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+      padding: 24px; text-align: center;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 30%, rgba(243, 212, 124, .2), transparent 70%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.32) 0 2px, transparent 2px 72px),
+        linear-gradient(180deg, #3B2213, #24140b);
+      transition: opacity .6s ease, visibility .6s;
+    }
+    #carga.listo { opacity: 0; visibility: hidden; }
+    .bombillos { position: absolute; top: 18px; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 12px; }
+    .bombillos i { width: 9px; height: 12px; border-radius: 50% 50% 46% 46%; background: radial-gradient(circle at 40% 35%, #fff8e0, #F3D47C 55%, #D9A93B);
+      box-shadow: 0 0 14px 4px rgba(243, 212, 124, .45); animation: titila 2.6s ease-in-out infinite alternate; }
+    .bombillos i:nth-child(4n+3) { background: radial-gradient(circle at 40% 35%, #ffd2c2, #D7301F 55%, #B3261E); box-shadow: 0 0 14px 4px rgba(215, 48, 31, .4); }
+    .bombillos i:nth-child(odd) { animation-delay: -1.3s; }
+    @keyframes titila { from { opacity: .6; } to { opacity: 1; } }
+    .letrero {
+      font-family: 'Rye', Georgia, serif; font-size: clamp(34px, 11vw, 54px); line-height: 1; color: #F3D47C;
+      text-shadow: 0 1px 0 #7A1712, 0 2px 0 #7A1712, 0 3px 0 #7A1712, 0 4px 0 #5a110d, 0 10px 18px rgba(0,0,0,.6);
+    }
+    .sub { font-size: clamp(15px, 4.4vw, 18px); color: #E7D1AE; }
+    .sub b { color: #F3D47C; }
+    .huellas { display: flex; gap: 10px; height: 34px; align-items: center; }
+    .huellas svg { width: 22px; height: 26px; color: #D7301F; opacity: .15; animation: paso 1.6s ease-in-out infinite; }
+    .huellas svg:nth-child(odd) { transform: rotate(-10deg) translateY(-3px); }
+    .huellas svg:nth-child(even) { transform: rotate(10deg) translateY(3px); }
+    .huellas svg:nth-child(2) { animation-delay: .2s; } .huellas svg:nth-child(3) { animation-delay: .4s; }
+    .huellas svg:nth-child(4) { animation-delay: .6s; } .huellas svg:nth-child(5) { animation-delay: .8s; }
+    @keyframes paso { 0%, 100% { opacity: .15; } 30% { opacity: 1; } }
+    .cargando { font-size: 14px; color: #CDAF83; min-height: 20px; }
+
+    /* Respaldo: si la tarjeta tarda o no se puede mostrar aquí */
+    #respaldo { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    #respaldo[hidden] { display: none; }
+    #respaldo p { margin: 0; font-size: 14px; color: #E7D1AE; max-width: 300px; }
+    .boton {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 26px; border-radius: 27px;
+      font-weight: 700; font-size: 17px; color: #3B2213; text-decoration: none;
+      background: linear-gradient(180deg, rgba(255,255,255,.3) 0 40%, transparent 40%), linear-gradient(180deg, #F3D47C, #D9A93B);
+      box-shadow: 0 4px 0 #9C7420, 0 8px 14px rgba(0,0,0,.35);
+    }
+    .boton:active { transform: translateY(2px); box-shadow: 0 2px 0 #9C7420; }
+    button.boton { border: 0; cursor: pointer; font-family: inherit; }
+    .boton.secundario { background: transparent; color: #F3D47C; box-shadow: inset 0 0 0 2px rgba(243, 212, 124, .6); min-height: 46px; font-size: 15px; }
+    @media (prefers-reduced-motion: reduce) { .bombillos i, .huellas svg { animation: none; opacity: .8; } }
+  </style>
+</head>
+<body>
+  <div id="carga" role="status" aria-live="polite">
+    <div class="bombillos" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="letrero">Gallera AA</div>
+    <div class="sub">70 años de <b>Don Anundo Aranda</b></div>
+    <div class="huellas" aria-hidden="true">
+      <svg viewBox="0 0 24 28"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 16.5V26M12 16.5L4.6 6.2M12 16.5V2.6M12 16.5l7.4-10.3"/></g><circle cx="12" cy="16.5" r="3.2" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 28"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 16.5V26M12 16.5L4.6 6.2M12 16.5V2.6M12 16.5l7.4-10.3"/></g><circle cx="12" cy="16.5" r="3.2" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 28"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 16.5V26M12 16.5L4.6 6.2M12 16.5V2.6M12 16.5l7.4-10.3"/></g><circle cx="12" cy="16.5" r="3.2" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 28"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 16.5V26M12 16.5L4.6 6.2M12 16.5V2.6M12 16.5l7.4-10.3"/></g><circle cx="12" cy="16.5" r="3.2" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 28"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 16.5V26M12 16.5L4.6 6.2M12 16.5V2.6M12 16.5l7.4-10.3"/></g><circle cx="12" cy="16.5" r="3.2" fill="currentColor"/></svg>
+    </div>
+    <div class="cargando" id="estado">Abriendo la gallera…</div>
+    <div id="respaldo" hidden>
+      <p id="respaldo-texto">La tarjeta está tardando en abrir. Puede ser la señal.</p>
+      <button type="button" class="boton" id="reintentar">Volver a intentar</button>
+      <p id="respaldo-otra" hidden>Si sigue sin abrir, ábrela en otra pestaña (es la misma tarjeta; si ya confirmaste aquí, allá te puede pedir confirmar otra vez):</p>
+      <a class="boton secundario" id="abrir" href="#" target="_blank" rel="noopener" hidden>Abrir en otra pestaña</a>
+    </div>
+  </div>
+
+  <iframe id="tarjeta" title="Tarjeta de invitación: 70 años de Don Anundo Aranda"
+          allow="autoplay; fullscreen; clipboard-write" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+  <script>
+    (function () {
+      'use strict';
+      // URL de la aplicación web de Apps Script (termina en /exec).
+      // publicar.cmd la escribe aquí automáticamente después de publicar.
+      var URL_EXEC = 'https://script.google.com/macros/s/AKfycbxxGH_OAizEu_toynNUrgAmxQCTVUbU-VCLVur75xKttOFSJUCjXpdNiFfJPM5M18YQnA/exec';
+
+      var iframe = document.getElementById('tarjeta');
+      var carga = document.getElementById('carga');
+      var estado = document.getElementById('estado');
+      var respaldo = document.getElementById('respaldo');
+      var abrir = document.getElementById('abrir');
+      var lista = false;
+
+      // Solo para pruebas locales: ?app=<url> funciona únicamente en localhost.
+      var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+      var prueba = local ? new URLSearchParams(location.search).get('app') : null;
+      var destino = prueba || URL_EXEC;
+
+      if (!/^https?:\/\//i.test(destino)) {
+        estado.textContent = 'La tarjeta todavía no está publicada.';
+        return;
+      }
+      abrir.href = destino;
+      iframe.src = destino;
+
+      function mostrarTarjeta() {
+        if (lista) return;
+        lista = true;
+        carga.classList.add('listo');
+        estado.textContent = '';
+      }
+
+      // La tarjeta avisa cuando arrancó ('lista') y cuando se abre el portón ('abierta').
+      window.addEventListener('message', function (ev) {
+        var d = ev.data;
+        if (!d || typeof d !== 'object' || d.tipo !== 'anundo70') return;
+        if (d.evento === 'lista' || d.evento === 'abierta') mostrarTarjeta();
+      });
+
+      // Respaldo. La tarjeta pesa ~1,4 MB: con señal rural puede tardar. Primero se ofrece
+      // reintentar AQUÍ (así el celular sigue recordando al invitado en este mismo sitio);
+      // abrir la /exec en otra pestaña es el último recurso, porque el navegador guarda los
+      // datos por sitio y allá no recordaría que ya confirmó.
+      var intentos = 0;
+      function ofrecerRespaldo() {
+        if (lista) return;
+        estado.textContent = '';
+        respaldo.hidden = false;
+        if (intentos >= 1) {
+          document.getElementById('respaldo-otra').hidden = false;
+          abrir.hidden = false;
+        }
+      }
+      document.getElementById('reintentar').addEventListener('click', function () {
+        intentos++;
+        respaldo.hidden = true;
+        estado.textContent = 'Abriendo la gallera…';
+        iframe.src = destino;
+        setTimeout(ofrecerRespaldo, 20000);
+      });
+      setTimeout(ofrecerRespaldo, 20000);
+    })();
+  </script>
+</body>
+</html>
